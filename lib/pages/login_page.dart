@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:knet_app/pages/home_page.dart';
+import 'package:knet_app/controllers/login_controller.dart';
+// import 'package:knet_app/pages/home_page.dart';
 
 class LoginPage extends StatefulWidget {
   static String tag = 'login-page';
@@ -8,6 +9,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  LoginController login_ctrl = new LoginController();
+
   @override
   Widget build(BuildContext context) {
     final logo = Hero(
@@ -52,7 +55,8 @@ class _LoginPageState extends State<LoginPage> {
           minWidth: 200.0,
           height: 42.0,
           onPressed: () {
-            Navigator.of(context).pushNamed('/home');
+            // Navigator.of(context).pushNamed('/home');
+            login_ctrl.login('luca.ciotti@gmail.com', '112358');
           },
           child: Text('Log In', style: TextStyle(color: Colors.white)),
         ),

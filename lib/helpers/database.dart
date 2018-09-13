@@ -41,9 +41,10 @@ class DbHelper {
   }
 
   // FUNZIONI HELPER PER INTERAGIRE CON IL DATABASE
-  Future<Model> insert(String tableName, Model someModel) async {
+  FutureOr<Model> insert(String tableName, Model someModel) async {
     Database dbClient = await db;
     someModel.id = await dbClient.insert(tableName, someModel.toMap());
+    print("inserted");
     return someModel;
   }
 

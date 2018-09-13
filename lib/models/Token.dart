@@ -1,7 +1,6 @@
 import 'package:knet_app/models/_abstract_model.dart';
 
-class Token implements Model {
-  int id;
+class Token extends Model {
   String _tokenType;
   int _expiresIn;
   String _accessToken;
