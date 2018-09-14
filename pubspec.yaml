@@ -22,6 +22,7 @@ dependencies:
   sqflite: any
   path_provider: ^0.4.1
   dotenv: ^1.0.0
+  validate: ^1.7.0
 
 dev_dependencies:
   flutter_test:
