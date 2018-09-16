@@ -28,17 +28,9 @@ class LoginController {
     return _netUtil.post(loginUrl, body: body).then((dynamic res) async {
       print(res.toString());
       if(res["error"] != null) return res;
-      // Token tkn = new Token.map(res);
-      int trunc = await _db.truncateTable("Token");
-      if (trunc>0) {
-        await _db.insert("Token", new Token.map(res));
-      } else {
-        throw new Exception("Can't truncate DB!");
-      }
-      /* Map map = await _db.getFirst("Token");
-      Token tkn2 = Token.fromMap(map);
-      print(tkn2.toString());
-      print("This is the access Token:${tkn2.accessToken}"); */
+      await _db.truncateTable("Token");
+      await _db.truncateTable("User");
+      await _db.insert("Token", new Token.map(res));
       return res;
     });
   }

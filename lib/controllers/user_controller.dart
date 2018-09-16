@@ -29,15 +29,13 @@ class UserController {
         "Accept": "application/json",
       };
       return _netUtil.get(profileUrl, headers: headers).then((dynamic res) async {
+        print(res.toString());
         if(res["message"] != null) return res;
         myProfile =  new User.map(res);
         //update database
-        // int trunc = await _db.truncateTable("User");
-        // if (trunc>0) {
-          await _db.insert("User", myProfile);
-        // } else {
-        //   throw new Exception("Can't truncate DB!");
-        // }
+        await _db.truncateTable("User");
+        await _db.insert("User", myProfile);
+        
         return myProfile;
         });
     }

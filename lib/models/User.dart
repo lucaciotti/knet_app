@@ -11,6 +11,7 @@ class User extends Model {
   User(this._name, this._nickname, this._email, this._lang, this._ditta, this._role);
 
   User.map(dynamic obj) {
+    this._name = obj["name"];
     this._nickname = obj["nickname"];
     this._email = obj["email"];
     this._lang = obj["lang"];

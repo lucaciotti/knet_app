@@ -44,14 +44,16 @@ class HomePageState extends State<HomePage>  with TickerProviderStateMixin {
       parent: _controller,
       curve: Curves.fastOutSlowIn,
     ));
-    this.setProfile();
+    this._setProfile();
   }
 
-  void setProfile(){
+  void _setProfile() async {
     // User
-    var res = userCtrl.getUserProfile();
+    dynamic res = await userCtrl.getUserProfile();
+    print(res);
     if (res is User) {
       _myProfile = res;
+      print(_myProfile.name);
       setState(() {
         nameProfile = _myProfile.name;
         emailProfile = _myProfile.email;
@@ -63,19 +65,7 @@ class HomePageState extends State<HomePage>  with TickerProviderStateMixin {
   void dispose() {
     _controller.dispose();
     super.dispose();
-  }
-
-  IconData _backIcon() {
-    switch (Theme.of(context).platform) {
-      case TargetPlatform.android:
-      case TargetPlatform.fuchsia:
-        return Icons.arrow_back;
-      case TargetPlatform.iOS:
-        return Icons.arrow_back_ios;
-    }
-    assert(false);
-    return null;
-  }
+  }  
 
   void _showNotImplementedMessage() {
     Navigator.pop(context); // Dismiss the drawer.
@@ -107,30 +97,7 @@ class HomePageState extends State<HomePage>  with TickerProviderStateMixin {
       ),
     );
 
-    final body = Container(
-      width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.all(28.0),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Colors.white,
-            Colors.green[50],
-          ]
-        ),
-      ),
-      child: Column(
-        children: <Widget>[alucard, welcome],
-      ),
-    );
-
-    return new Scaffold(
-      key: _scaffoldKey,
-      appBar: new AppBar(
-        title: const Text('Navigation drawer'),
-      ),
-      drawer: new Drawer(
+    Widget drawer2 = new Drawer(
         child: new Column(
           children: <Widget>[
             new UserAccountsDrawerHeader(
@@ -204,8 +171,35 @@ class HomePageState extends State<HomePage>  with TickerProviderStateMixin {
             ),
           ],
         ),
+      );
+
+    Widget body = Container(
+      width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.all(28.0),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Colors.white,
+            Colors.green[50],
+          ]
+        ),
       ),
+      child: Column(
+        children: <Widget>[alucard, welcome, new FlatButton(child: Text("Reload"), onPressed: () { _setProfile();},)],
+      ),
+    );
+
+    return new Scaffold(
+      key: _scaffoldKey,
+      appBar: new AppBar(
+        title: const Text('Navigation drawer'),
+      ),
+      drawer: drawer2,
       body: body,
     );
+
+    
   }
 }

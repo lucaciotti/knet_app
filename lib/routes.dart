@@ -6,5 +6,6 @@ final routes = {
   // '/home': (BuildContext context) => new HomePage(),
   '/login': (BuildContext context) => new LoginPage(),
   '/home': (BuildContext context) => new HomePage(),
+  // '/customer': (BuildContext context) => new CustomerPage();
   '/about': null,
 };

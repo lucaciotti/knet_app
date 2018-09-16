@@ -25,15 +25,15 @@ class DbHelper {
 
   initDb() async {
     io.Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentsDirectory.path, "main.db");
-    var theDb = await openDatabase(path, version: 2, onCreate: _onCreate);
+    String path = join(documentsDirectory.path, "dev.db");
+    var theDb = await openDatabase(path, version: 1, onCreate: _onCreate);
     return theDb;
   }
 
   void _onCreate(Database db, int version) async {
 
     await db.transaction((txn) async {
-      await txn.execute("CREATE TABLE User (_id INTEGER PRIMARY KEY, nickname TEXT, email TEXT, lang TEXT, ditta TEXT, role TEXT)");
+      await txn.execute("CREATE TABLE User (_id INTEGER PRIMARY KEY, name TEXT, nickname TEXT, email TEXT, lang TEXT, ditta TEXT, role_name TEXT)");
       
       await txn.execute("CREATE TABLE Token (_id INTEGER PRIMARY KEY, token_type TEXT, expires_in INTEGER, access_token TEXT, refresh_token TEXT)"); 
       print("Created tables");     
